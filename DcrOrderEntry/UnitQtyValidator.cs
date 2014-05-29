@@ -69,6 +69,8 @@ namespace DcrOrderEntry
                             else
                                 found.Copy(item);   // Update Item
                         }
+                        else if (item.unit_quantity > 0 && item.disposition != "C")
+                            items.Add(item);    // Add new Item
                     }
                     else if (item.unit_quantity > 0 && item.disposition != "C")
                         items.Add(item);    // Add new Item
