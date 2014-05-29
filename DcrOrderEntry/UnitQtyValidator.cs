@@ -58,22 +58,18 @@ namespace DcrOrderEntry
                 {
                     var items = service.LoadLinesFile(order_no);
 
-                    if (items.Count > 0)
-                    {
-                        var found = items.FirstOrDefault(t => t.oe_line_uid == item.oe_line_uid);
+                    var found = items.FirstOrDefault(t => t.oe_line_uid == item.oe_line_uid);
 
-                        if (found != null)
-                        {
-                            if (item.unit_quantity <= 0 || item.disposition == "C")
-                                items.Remove(found);    // Canceled Item
-                            else
-                                found.Copy(item);   // Update Item
-                        }
-                        else if (item.unit_quantity > 0 && item.disposition != "C")
-                            items.Add(item);    // Add new Item
+                    if (found != null)
+                    {
+                        if (item.unit_quantity <= 0 || item.disposition == "C")
+                            items.Remove(found);    // Canceled Item
+                        else
+                            found.Copy(item);   // Update Item
                     }
                     else if (item.unit_quantity > 0 && item.disposition != "C")
                         items.Add(item);    // Add new Item
+                    
 
                     service.SaveLinesFile(order_no, items);
                 }                
