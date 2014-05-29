@@ -42,6 +42,12 @@ namespace DcrOrderEntry
                 string unit_price = GetDataFieldValue("unit_price");
                 string disposition = GetDataFieldValue("disposition");
 
+                if (GetErrorCount() > 0)
+                {
+                    MessageBox.Show(GetErrors(), "Error");
+                    return result;
+                }
+
                 OeLineItem item = new OeLineItem(oe_line_uid,
                     inv_mast_uid,
                     unit_quantity,
@@ -68,12 +74,7 @@ namespace DcrOrderEntry
                         items.Add(item);    // Add new Item
 
                     service.SaveLinesFile(order_no, items);
-                }
-
-                if (GetErrorCount() > 0)
-                {
-                    MessageBox.Show(GetErrors(), "Error");
-                }
+                }                
             }
             catch (Exception ex)
             {
