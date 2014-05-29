@@ -29,6 +29,12 @@ namespace DcrOrderEntry
             {
                 string order_no = GetDataFieldValue("order_no");
 
+                if (GetErrorCount() > 0)
+                {
+                    MessageBox.Show(GetErrors(), "Error");
+                    return result;
+                }
+
                 using (OrderEntryService service = new OrderEntryService(Server, Db))
                 {
                     var items = service.GetOeLineItems(order_no);
@@ -37,11 +43,6 @@ namespace DcrOrderEntry
                         service.SaveLinesFile(order_no, items);
                     else
                         service.DeleteFile(order_no);
-                }
-
-                if (GetErrorCount() > 0)
-                {
-                    MessageBox.Show(GetErrors(), "Error");
                 }
             }
             catch (Exception ex)
