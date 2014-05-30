@@ -8,6 +8,8 @@
 
 using Activant.P21.Extensions.BusinessRule;
 using DcrDataAccess;
+using DcrDataAccess.Forms;
+using DcrDataAccess.Models;
 using DcrDataAccess.Models.OrderEntry;
 using System;
 using System.Collections.Generic;
@@ -32,6 +34,8 @@ namespace DcrOrderEntry
         {            
             RuleResult result = new RuleResult { Success = true };
 
+            SessionInfo info = GetSessionInfo();
+
             try
             {
                 UnitQtyValidator qtyVal = new UnitQtyValidator();
@@ -40,7 +44,7 @@ namespace DcrOrderEntry
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error");
+                new ErrorForm(this.GetType().Name, info, ex.ToString()).ShowDialog();
             }
             return result;
         }

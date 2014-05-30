@@ -9,6 +9,7 @@
 
 using Activant.P21.Extensions.BusinessRule;
 using DcrDataAccess;
+using DcrDataAccess.Forms;
 using DcrDataAccess.Models;
 using DcrDataAccess.Models.OrderEntry;
 using System;
@@ -32,6 +33,8 @@ namespace DcrOrderEntry
         {            
             RuleResult result = new RuleResult { Success = true };
 
+            SessionInfo info = GetSessionInfo();
+
             try
             {
                 string unit_quantity = GetDataFieldValue("unit_quantity");
@@ -43,11 +46,9 @@ namespace DcrOrderEntry
 
                 if (GetErrorsCount() > 0)
                 {
-                    MessageBox.Show(GetErrors(), "Error");
+                    new ErrorForm(this.GetType().Name, info, GetErrors()).ShowDialog();
                     return result;
                 }
-
-                SessionInfo info = GetSessionInfo();
 
                 OeLineItem item = new OeLineItem(oe_line_uid,
                     inv_mast_uid,
@@ -76,7 +77,7 @@ namespace DcrOrderEntry
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error");
+                new ErrorForm(this.GetType().Name, info, ex.ToString()).ShowDialog();
             }
 
             return result;
