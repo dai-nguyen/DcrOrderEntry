@@ -9,6 +9,7 @@
 
 using Activant.P21.Extensions.BusinessRule;
 using DcrDataAccess;
+using DcrDataAccess.Models;
 using DcrDataAccess.Models.OrderEntry;
 using System;
 using System.Linq;
@@ -28,9 +29,7 @@ namespace DcrOrderEntry
         /// </summary>
         /// <returns></returns>
         public override RuleResult Execute()
-        {
-            GetBasicInfo();
-
+        {            
             RuleResult result = new RuleResult { Success = true };
 
             try
@@ -42,11 +41,13 @@ namespace DcrOrderEntry
                 string unit_price = GetDataFieldValue("unit_price");
                 string disposition = GetDataFieldValue("disposition");
 
-                if (GetErrorCount() > 0)
+                if (GetErrorsCount() > 0)
                 {
                     MessageBox.Show(GetErrors(), "Error");
                     return result;
                 }
+
+                SessionInfo info = GetSessionInfo();
 
                 OeLineItem item = new OeLineItem(oe_line_uid,
                     inv_mast_uid,
@@ -54,7 +55,7 @@ namespace DcrOrderEntry
                     unit_price,
                     disposition);
                                 
-                using (OrderEntryService service = new OrderEntryService(Server, Db))
+                using (OrderEntryService service = new OrderEntryService(info.Server, info.Db))
                 {
                     var items = service.LoadLinesFile(order_no);
 
@@ -70,7 +71,6 @@ namespace DcrOrderEntry
                     else if (item.unit_quantity > 0 && item.disposition != "C")
                         items.Add(item);    // Add new Item
                     
-
                     service.SaveLinesFile(order_no, items);
                 }                
             }

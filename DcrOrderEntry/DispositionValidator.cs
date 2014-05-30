@@ -29,9 +29,7 @@ namespace DcrOrderEntry
         /// </summary>
         /// <returns></returns>
         public override RuleResult Execute()
-        {
-            GetBasicInfo();
-
+        {            
             RuleResult result = new RuleResult { Success = true };
 
             try

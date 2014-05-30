@@ -8,6 +8,7 @@
 
 using Activant.P21.Extensions.BusinessRule;
 using DcrDataAccess;
+using DcrDataAccess.Models;
 using System;
 using System.Windows.Forms;
 
@@ -20,22 +21,22 @@ namespace DcrOrderEntry
         /// </summary>
         /// <returns></returns>
         public override RuleResult Execute()
-        {
-            GetBasicInfo();
-            
+        {                        
             RuleResult result = new RuleResult { Success = true };
 
             try
             {
                 string order_no = GetDataFieldValue("order_no");
 
-                if (GetErrorCount() > 0)
+                if (GetErrorsCount() > 0)
                 {
                     MessageBox.Show(GetErrors(), "Error");
                     return result;
                 }
 
-                using (OrderEntryService service = new OrderEntryService(Server, Db))
+                SessionInfo info = GetSessionInfo();
+
+                using (OrderEntryService service = new OrderEntryService(info.Server, info.Db))
                 {
                     var items = service.GetOeLineItems(order_no);
 
