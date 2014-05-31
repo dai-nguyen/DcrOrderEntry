@@ -18,7 +18,7 @@ using System.Windows.Forms;
 
 namespace DcrOrderEntry
 {
-    public class UnitQtyValidator : RuleExt
+    public class OEUnitQtyValidator : RuleExt
     {
         /// <summary>
         /// Link    unit_quantity

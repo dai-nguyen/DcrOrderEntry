@@ -38,7 +38,7 @@ namespace DcrOrderEntry
 
             try
             {
-                UnitQtyValidator qtyVal = new UnitQtyValidator();
+                OEUnitQtyValidator qtyVal = new OEUnitQtyValidator();
                 qtyVal.Data = this.Data;
                 qtyVal.Execute();
             }

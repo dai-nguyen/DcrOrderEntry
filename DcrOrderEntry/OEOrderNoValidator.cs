@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace DcrOrderEntry
 {
-    public class OrderNoValidator : RuleExt
+    public class OEOrderNoValidator : RuleExt
     {
         /// <summary>
         /// Link order_no

@@ -44,9 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DispositionValidator.cs" />
-    <Compile Include="OrderNoValidator.cs" />
+    <Compile Include="OEOrderNoValidator.cs" />
+    <Compile Include="OEOrderNoWorkflow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitQtyValidator.cs" />
+    <Compile Include="OEUnitQtyValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DcrDataAccess\DcrDataAccess\DcrDataAccess.csproj">
