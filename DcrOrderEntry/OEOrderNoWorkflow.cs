@@ -3,7 +3,7 @@
  * Copyright (c) 2014 Dai Nguyen
  * Author: Dai Nguyen
  * 
- * Delete old temp file
+ * Delete temp file
 **/
 
 using Activant.P21.Extensions.BusinessRule;
